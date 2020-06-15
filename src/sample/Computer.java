@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Computer extends Player {
     ArrayList<Cell> madeGuesses = new ArrayList<Cell>();
-    private GameHelper helper = new GameHelper();
+
 
     Computer() {
         super();
     }
 
-    @Override
+
     public void setShipsLocations() {
         for (Ship shipToSet : shipList) {//повторяем скаждым объектом в списке
             ArrayList<Cell> coords = new ArrayList<Cell>(shipToSet.getSize());//координаты текущего сайта
@@ -21,20 +21,20 @@ public class Computer extends Player {
             int cardinalDirection = 1 + (int) Math.random() * 4;//устанавливаем горизонтальный инкремент
 
             while (!success & attempts++ < 200) {//главный поисковой цикл
-                int row = (int) Math.random() * helper.getGrid().length;
-                int column = (int) Math.random() * helper.getGrid().length;//получаем случайную стартовую точку
+                int row = (int) Math.random() * getGrid().length;
+                int column = (int) Math.random() * getGrid().length;//получаем случайную стартовую точку
                 int x = 0;//энная позиция в сайте
 
                 success = true;//предполагаемый успех
                 while (success && x < shipToSet.getSize()) { //ищем соседнюю неиспользованную ячейку
-                    if (!helper.getGrid()[row][column].usedForShip()) {//если еще не исспользуется
+                    if (!getGrid()[row][column].usedForShip()) {//если еще не используется
 
-                        if (cardinalDirection == 1) coords.add(x++, helper.getGrid()[row++][column]);
-                        if (cardinalDirection == 2) coords.add(x++, helper.getGrid()[row--][column]);
-                        if (cardinalDirection == 3) coords.add(x++,helper.getGrid()[row][column++]);
-                        if (cardinalDirection == 4) coords.add(x++, helper.getGrid()[row][column--]);
+                        if (cardinalDirection == 1) coords.add(x++, getGrid()[row--][column]);
+                        if (cardinalDirection == 2) coords.add(x++, getGrid()[row++][column]);
+                        if (cardinalDirection == 3) coords.add(x++,getGrid()[row][column++]);
+                        if (cardinalDirection == 4) coords.add(x++, getGrid()[row][column--]);
 
-                        if (row >= helper.getGrid().length || column >= helper.getGrid().length || row < 0 || column < 0)
+                        if (row >= getGrid().length || column >= getGrid().length || row < 0 || column < 0)
                             success = false;//вышли за рамкм - низ
                         //неудача
 
@@ -57,7 +57,7 @@ public class Computer extends Player {
         int row = (int) Math.random() * 11;
         int collumn = (int) Math.random() * 11;
 
-        Cell guess = new Cell(helper.getAlphabet().charAt(row),collumn);
+        Cell guess = new Cell(row,collumn);
         if (!madeGuesses.contains(guess)){
             madeGuesses.add(guess);
             return guess;

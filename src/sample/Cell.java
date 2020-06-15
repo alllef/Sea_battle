@@ -6,16 +6,11 @@ import java.util.regex.Pattern;
 /**
  * https://www.baeldung.com/java-record-keyword
  */
-public record Cell(char row, int col, boolean usedForShip) {
+public record Cell(int row, int col, boolean usedForShip) {
 
-    private static final Pattern rowPattern = Pattern.compile("([a-z])");
 
-    public Cell {
-        Objects.checkIndex(col, 11);
-        if (!rowPattern.matcher(String.valueOf(row)).find()) throw new IllegalArgumentException(String.format("row: '%c' should be ([a-z])", row));
-    }
 
-    public Cell(char row, int col) {
+    public Cell(int row, int col) {
         this(row, col, false);
     }
 

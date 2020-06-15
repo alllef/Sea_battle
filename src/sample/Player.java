@@ -3,14 +3,33 @@ package sample;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract public class Player {
+ abstract public class Player {
     protected List<Ship> shipList = new ArrayList<>();
+     private  Cell[][] grid = new Cell[11][11];
+
+     public void setupGrid() {
+         for (int i = 0; i < grid.length; i++) {
+             for (int j = 0; j < grid[i].length; j++) {
+                 grid[i][j] = new Cell(i, j);
+             }
+         }
+     }
+
+     public Cell[][]getGrid(){
+         return grid;
+     }
 
     Player() {
         setupShips();
+        setupGrid();
     }
 
     public void setupShips() {
+        shipList.add(new Ship(1));
+        shipList.add(new Ship(1));
+        shipList.add(new Ship(1));
+        shipList.add(new Ship(1));
+        shipList.add(new Ship(1));
         shipList.add(new Ship(5));
         shipList.add(new Ship(4));
         shipList.add(new Ship(4));
@@ -21,14 +40,9 @@ abstract public class Player {
         shipList.add(new Ship(2));
         shipList.add(new Ship(2));
         shipList.add(new Ship(2));
-        shipList.add(new Ship(1));
-        shipList.add(new Ship(1));
-        shipList.add(new Ship(1));
-        shipList.add(new Ship(1));
-        shipList.add(new Ship(1));
+
     }
 
-   abstract public void setShipsLocations();
 
     abstract public Cell makeGuess();
 

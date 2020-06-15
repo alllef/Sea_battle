@@ -14,14 +14,14 @@ public class DotComBust {
     private void setUpGame() {
         Human human = new Human();
         Computer computer = new Computer();
-        human.setShipsLocations();
+        //human.setShipsLocations();
         computer.setShipsLocations();
     }
 
     private void startPlaying() {
         Human human = new Human();
         Computer computer = new Computer();
-        human.setShipsLocations();
+        //human.setShipsLocations();
         computer.setShipsLocations();
         while (!computer.shipList.isEmpty()||!human.shipList.isEmpty()) {//До тех пор пока список объектов в DotCom не станет путсым
            Cell guess = human.makeGuess();
