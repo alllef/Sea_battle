@@ -9,7 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -18,10 +21,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main extends Application {
-HumanGUI gui = new HumanGUI();
+    HumanGUI gui = new HumanGUI();
+
+    GridPane makeHumanGrid() {
+        GridPane tmpGrid = new GridPane();
+        tmpGrid.setGridLinesVisible(true);
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++) {
+                Button button =gui.buttonGrid[i][j];
+                tmpGrid.add(button, j, i);
+            }
+        }
+        return tmpGrid;
+    }
 
     @Override
-    public void start(Stage primaryStage)  {
+    public void start(Stage primaryStage) {
 
 
 // установка надписи
@@ -29,7 +44,7 @@ HumanGUI gui = new HumanGUI();
         text.setLayoutY(80);    // установка положения надписи по оси Y
         text.setLayoutX(100);   // установка положения надписи по оси X*/
 
-        Group group = new Group();
+        FlowPane gamePane = new FlowPane();
 
 //        Button buttonGetInfo = new Button("Info");
 //        Button buttonGetInfo1 = new Button("Info1");
@@ -49,31 +64,35 @@ HumanGUI gui = new HumanGUI();
         iv11.setFitHeight(100);
         iv11.setFitWidth(100);
 
-        GridPane root = new GridPane();
+
+
 // Для отображения сетки
-        root.setGridLinesVisible(true);
+        GridPane computerGrid = new GridPane();
+        computerGrid.setGridLinesVisible(true);
 
 
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 7; j++) {
 
-        for (int i = 0; i < 11; i++) {
-            for (int j = 0; j < 11; j++) {
-
-                root.add(gui.buttonGrid[i][j], i, j);
+                computerGrid.add(new Button(), i, j);
             }
         }
 
+        gamePane.setHgap(220);
+        gamePane.getChildren().addAll(makeHumanGrid(), computerGrid);
+        //Scene setup = new Scene(makeHumanGrid());
+        Scene game = new Scene(gamePane);
+
+        primaryStage.setScene(game);
 
 
 
 
-        group.getChildren().add(root);
-
-        Scene scene = new Scene(group);
-        primaryStage.setScene(scene);
         primaryStage.setTitle("Sea battle");
         primaryStage.setWidth(800);
         primaryStage.setHeight(800);
         primaryStage.show();
+
     }
 
 

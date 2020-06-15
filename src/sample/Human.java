@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Human extends Player {
 
     Integer setupCounter = 0;
+    int usedCellsCounter = 0;
 
     Human() {
         super();
@@ -13,7 +14,7 @@ public class Human extends Player {
 
 
     public AllCoordsVariants setupShip(int roww, int coll) {
-
+System.out.println("Сетапится корабль размером"+shipList.get(setupCounter).getSize()+"по координатам"+roww+" "+coll);
         AllCoordsVariants allCoordsVariants = new AllCoordsVariants();
 
 
@@ -35,7 +36,7 @@ public class Human extends Player {
                             break;
                     } else break;
                 }
-                System.out.println(row + " " + col);
+
                 if (coords.size() == shipList.get(setupCounter).getSize())
                     allCoordsVariants = allCoordsVariants.coordsVariantsOf(currSide, coords);
 
@@ -44,13 +45,29 @@ public class Human extends Player {
         }
 
         if (allCoordsVariants.isEmpty()) return null;
-        System.out.println(allCoordsVariants.up().size()+" "+allCoordsVariants.left().size()+" "+allCoordsVariants.right().size()+" "+allCoordsVariants.down().size());
+        System.out.println("Все координаты таковы"+allCoordsVariants.up().size() + " " + allCoordsVariants.down().size() + " " + allCoordsVariants.right().size() + " " + allCoordsVariants.left().size());
         return allCoordsVariants;
     }
 
 
     void setCells(ArrayList<Cell> coords) {
+
         shipList.get(setupCounter).setLocationCells(coords);
+
+        for(Cell cell: shipList.get(setupCounter).getLocationCells()){
+            getGrid()[cell.row()][cell.col()]=cell;
+        }
+System.out.println(" список занятых координат");
+        for(int i=0; i<getGrid().length; i++){
+            for(int j = 0; j<getGrid().length; j++){
+                if (getGrid()[i][j].usedForShip()){
+                    System.out.println(i+ " "+j);
+                    usedCellsCounter++;
+                }
+            }
+        }
+        System.out.println(usedCellsCounter);
+
         setupCounter++;
     }
 
@@ -84,7 +101,7 @@ public class Human extends Player {
 
     @Override
     public Cell makeGuess() {
-        return new Cell(0,0);
+        return new Cell(0, 0);
     }
 
 }
