@@ -7,7 +7,7 @@ import javafx.scene.layout.GridPane;
 public class MyPain {
 
     HumanGUI gui = new HumanGUI();
-    ComputerGUI otherGUI = new ComputerGUI();
+    ComputerGUI otherGUI = new ComputerGUI(gui);
     FlowPane gamePane = new FlowPane();
     Button button = new Button("To game");
 

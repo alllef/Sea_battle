@@ -58,12 +58,13 @@ import java.util.List;
 
             if (result.equals("Потопил")) {//Ему пришел конец, так что удаляем его из списка сайтов
                 shipList.remove(shipToTest);
+                if(shipList.isEmpty()) return null;
                 break;
             }
 
         }
 
-        System.out.println(result);//выводим для пользователя результат
+       // System.out.println(result);//выводим для пользователя результат
         return result;
     }
 

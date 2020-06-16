@@ -30,9 +30,7 @@ abstract public class PlayerGUI {
         button.setMaxWidth(Values.squareButtonSize);
         button.setPrefHeight(Values.squareButtonSize);
         button.setPrefWidth(Values.squareButtonSize);
-        int finalI = i;
-        int finalJ = j;
-        button.setOnAction(event -> setupButtonAction(finalI, finalJ));
+        button.setOnAction(event -> setupButtonAction(i, j));
         return button;
     }
 

@@ -57,6 +57,7 @@ System.out.println("Сетапится корабль размером"+shipList
        for(Cell cell: shipList.get(setupCounter).getLocationCells()){
             getGrid()[cell.row()][cell.col()]=cell;
         }
+
 System.out.println(" список занятых координат");
         for(int i=0; i<getGrid().length; i++){
             for(int j = 0; j<getGrid()[i].length; j++){
