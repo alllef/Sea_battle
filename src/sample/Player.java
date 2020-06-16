@@ -5,7 +5,7 @@ import java.util.List;
 
  abstract public class Player {
     protected List<Ship> shipList = new ArrayList<>();
-     private  Cell[][] grid = new Cell[11][11];
+     private  Cell[][] grid = new Cell[Values.squareGridSize][Values.squareGridSize];
 
      public void setupGrid() {
          for (int i = 0; i < grid.length; i++) {
@@ -46,7 +46,7 @@ import java.util.List;
 
     abstract public Cell makeGuess();
 
-    void checkGuess(Cell playerGuess) {
+    String checkGuess(Cell playerGuess) {
         String result = "Мимо";//Подразумевает промах, пока не выяснили обратного
 
         for (Ship shipToTest : shipList) {// повторяем это для всех объектов DotCom в списке
@@ -64,6 +64,7 @@ import java.util.List;
         }
 
         System.out.println(result);//выводим для пользователя результат
+        return result;
     }
 
 

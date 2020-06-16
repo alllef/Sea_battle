@@ -44,7 +44,8 @@ public class Ship {
                 result = "Попал";
             }
         }
-        //fSystem.out.println(result);
+
         return result;
     }
+
 }

@@ -54,12 +54,12 @@ System.out.println("Сетапится корабль размером"+shipList
 
         shipList.get(setupCounter).setLocationCells(coords);
 
-        for(Cell cell: shipList.get(setupCounter).getLocationCells()){
+       for(Cell cell: shipList.get(setupCounter).getLocationCells()){
             getGrid()[cell.row()][cell.col()]=cell;
         }
 System.out.println(" список занятых координат");
         for(int i=0; i<getGrid().length; i++){
-            for(int j = 0; j<getGrid().length; j++){
+            for(int j = 0; j<getGrid()[i].length; j++){
                 if (getGrid()[i][j].usedForShip()){
                     System.out.println(i+ " "+j);
                     usedCellsCounter++;

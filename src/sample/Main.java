@@ -21,9 +21,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main extends Application {
-    HumanGUI gui = new HumanGUI();
+    MyPain firstPain = new MyPain();
 
-    GridPane makeHumanGrid() {
+   /* GridPane makeHumanGrid() {
         GridPane tmpGrid = new GridPane();
         tmpGrid.setGridLinesVisible(true);
         for (int i = 0; i < 11; i++) {
@@ -33,7 +33,7 @@ public class Main extends Application {
             }
         }
         return tmpGrid;
-    }
+    }*/
 
     @Override
     public void start(Stage primaryStage) {
@@ -44,7 +44,7 @@ public class Main extends Application {
         text.setLayoutY(80);    // установка положения надписи по оси Y
         text.setLayoutX(100);   // установка положения надписи по оси X*/
 
-        FlowPane gamePane = new FlowPane();
+        // FlowPane gamePane = new FlowPane();
 
 //        Button buttonGetInfo = new Button("Info");
 //        Button buttonGetInfo1 = new Button("Info1");
@@ -65,32 +65,20 @@ public class Main extends Application {
         iv11.setFitWidth(100);
 
 
-
 // Для отображения сетки
-        GridPane computerGrid = new GridPane();
-        computerGrid.setGridLinesVisible(true);
-
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 7; j++) {
-
-                computerGrid.add(new Button(), i, j);
+      /*  */
+        Scene setup = new Scene(firstPain.gamePane);
+        firstPain.button.setOnAction(event -> {
+            if(firstPain.gui.human.setupCounter==15)  {
+              firstPain.gamePane.getChildren().add(firstPain.makeComputerGrid());
+                firstPain.gamePane.getChildren().remove(1);
             }
-        }
-
-        gamePane.setHgap(220);
-        gamePane.getChildren().addAll(makeHumanGrid(), computerGrid);
-        //Scene setup = new Scene(makeHumanGrid());
-        Scene game = new Scene(gamePane);
-
-        primaryStage.setScene(game);
-
-
+        });
+        primaryStage.setScene(setup);
 
 
         primaryStage.setTitle("Sea battle");
-        primaryStage.setWidth(800);
-        primaryStage.setHeight(800);
+        primaryStage.setFullScreen(true);
         primaryStage.show();
 
     }
