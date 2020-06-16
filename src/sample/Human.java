@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Human extends Player {
 
     Integer setupCounter = 0;
-    int usedCellsCounter = 0;
+   // int usedCellsCounter = 0;
 
     Human() {
         super();
@@ -27,7 +27,7 @@ System.out.println("Сетапится корабль размером"+shipList
 
                 for (int i = 0; i < shipList.get(setupCounter).getSize(); i++) {
 
-                    if (!getGrid()[row][col].usedForShip()) {
+                    if (!getGrid()[row][col].usedForShip()&&!areShipsNear(row,col)) {
                         if (currSide == 1) coords.add(getGrid()[row--][col]);
                         if (currSide == 2) coords.add(getGrid()[row++][col]);
                         if (currSide == 3) coords.add(getGrid()[row][col++]);
@@ -58,16 +58,7 @@ System.out.println("Сетапится корабль размером"+shipList
             getGrid()[cell.row()][cell.col()]=cell;
         }
 
-System.out.println(" список занятых координат");
-        for(int i=0; i<getGrid().length; i++){
-            for(int j = 0; j<getGrid()[i].length; j++){
-                if (getGrid()[i][j].usedForShip()){
-                    System.out.println(i+ " "+j);
-                    usedCellsCounter++;
-                }
-            }
-        }
-        System.out.println(usedCellsCounter);
+        //System.out.println(usedCellsCounter);
 
         setupCounter++;
     }

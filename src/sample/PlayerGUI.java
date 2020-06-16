@@ -6,6 +6,9 @@ import javafx.scene.image.ImageView;
 
 abstract public class PlayerGUI {
     Button[][] buttonGrid = new Button[Values.squareGridSize][Values.squareGridSize];
+    private final Image playI = new Image("red-cross.png", Values.squareButtonSize, Values.squareButtonSize, false, false);
+    private final Image play2 = new Image("dot.png", Values.squareButtonSize / 2, Values.squareButtonSize / 2, false, false);
+
 
 
     PlayerGUI() {
@@ -31,18 +34,19 @@ abstract public class PlayerGUI {
         button.setPrefHeight(Values.squareButtonSize);
         button.setPrefWidth(Values.squareButtonSize);
         button.setOnAction(event -> setupButtonAction(i, j));
+
         return button;
     }
 
-    ImageView shotImage() {
-        Image playI = new Image("red-cross.png", Values.squareButtonSize, Values.squareButtonSize, false, false);
+    ImageView getShotImage() {
+
 
         return new ImageView(playI);
     }
 
-    ImageView missImage() {
-        Image playI = new Image("dot.png", Values.squareButtonSize/2, Values.squareButtonSize/2, false, false);
-        return new ImageView(playI);
+    ImageView getMissImage() {
+
+        return new ImageView(play2);
     }
 
     abstract void setupButtonAction(final int i, final int j);

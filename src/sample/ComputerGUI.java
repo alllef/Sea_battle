@@ -24,16 +24,16 @@ public class ComputerGUI extends PlayerGUI {
 
 
         if (result.equals("Попал")) {
-            buttonGrid[i][j].setGraphic(shotImage());
+            buttonGrid[i][j].setGraphic(getShotImage());
             buttonGrid[i][j].setStyle("-fx-background-color: #0033cc");
             buttonGrid[i][j].setDisable(true);
             shipCells.add(new Cell(i, j));
 
         }
 
-        if (result.equals("Потопил")) {
+      else  if (result.equals("Потопил")) {
             shipCells.add(new Cell(i, j));
-            buttonGrid[i][j].setGraphic(shotImage());
+            buttonGrid[i][j].setGraphic(getShotImage());
 
             for (Cell cell : shipCells) {
                 buttonGrid[cell.row()][cell.col()].setStyle("-fx-background-color: #0033cc; -fx-border-color:red");
@@ -42,8 +42,8 @@ public class ComputerGUI extends PlayerGUI {
             shipCells.clear();
             buttonGrid[i][j].setDisable(true);
         }
-        if (result.equals("Мимо")) {
-            buttonGrid[i][j].setGraphic(missImage());
+       else if (result.equals("Мимо")) {
+            buttonGrid[i][j].setGraphic(getMissImage());
             buttonGrid[i][j].setStyle("-fx-background-color: #ffff99; -fx-border-color:black");
             buttonGrid[i][j].setDisable(true);
 

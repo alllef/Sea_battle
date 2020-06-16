@@ -19,17 +19,22 @@ public class Computer extends Player {
             int attempts = 0;//счетчик текущих попыток
             boolean success = false;//нашли подходящее местоположение
 
-
+            int rowCounter = 0;
+            int collumnCounter = 0;
             int cardinalDirection = 1 + (int) (Math.random() * 4);//устанавливаем горизонтальный инкремент
 
-            while (!success && attempts++ < 200) {//главный поисковой цикл
+            while (!success /*&& attempts++ < 10000*/) {//главный поисковой цикл
+                attempts++;
                 int row = (int) (Math.random() * Values.squareGridSize);
                 int column = (int) (Math.random() * Values.squareGridSize);//получаем случайную стартовую точку
-                int x = 0;//энная позиция в сайте
+                if (attempts > 9000) {
+                    row = rowCounter++;
+                    column = collumnCounter++;
+                }
 
                 success = true;//предполагаемый успех
                 while (success && coords.size() < shipToSet.getSize()) { //ищем соседнюю неиспользованную ячейку
-                    if (!getGrid()[row][column].usedForShip()) {//если еще не используется
+                    if (!getGrid()[row][column].usedForShip() && !areShipsNear(row, column)) {//если еще не используется
                         System.out.println("работает" + counter++);
                         if (cardinalDirection == 1) coords.add(getGrid()[row--][column]);
                         if (cardinalDirection == 2) coords.add(getGrid()[row++][column]);
