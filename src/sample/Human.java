@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Human extends Player {
 
     Integer setupCounter = 0;
-   // int usedCellsCounter = 0;
+    // int usedCellsCounter = 0;
 
     Human() {
         super();
@@ -14,38 +14,40 @@ public class Human extends Player {
 
 
     public AllCoordsVariants setupShip(int roww, int coll) {
-System.out.println("Сетапится корабль размером"+shipList.get(setupCounter).getSize()+"по координатам"+roww+" "+coll);
+        System.out.println("Сетапится корабль размером" + shipList.get(setupCounter).getSize() + "по координатам" + roww + " " + coll);
         AllCoordsVariants allCoordsVariants = new AllCoordsVariants();
 
 
         while (true) {
 
-            for (int currSide = 1; currSide <= 4; currSide++) {
+            for (int cardinalDirection = 1; cardinalDirection <= 4; cardinalDirection++) {
                 int row = roww;
                 int col = coll;
                 ArrayList<Cell> coords = new ArrayList<>();
 
                 for (int i = 0; i < shipList.get(setupCounter).getSize(); i++) {
 
-                    if (!getGrid()[row][col].usedForShip()&&!areShipsNear(row,col)) {
-                        if (currSide == 1) coords.add(getGrid()[row--][col]);
-                        if (currSide == 2) coords.add(getGrid()[row++][col]);
-                        if (currSide == 3) coords.add(getGrid()[row][col++]);
-                        if (currSide == 4) coords.add(getGrid()[row][col--]);
+                    if ( !areShipsNear(row, col)) {
+                        switch (cardinalDirection) {
+                            case 1 -> coords.add(getGrid()[row--][col]);
+                            case 2 -> coords.add(getGrid()[row++][col]);
+                            case 3 -> coords.add(getGrid()[row][col++]);
+                            case 4 -> coords.add(getGrid()[row][col--]);
+                        }
                         if (row >= getGrid().length || col >= getGrid().length || row < 0 || col < 0)
                             break;
                     } else break;
                 }
 
                 if (coords.size() == shipList.get(setupCounter).getSize())
-                    allCoordsVariants = allCoordsVariants.coordsVariantsOf(currSide, coords);
+                    allCoordsVariants = allCoordsVariants.coordsVariantsOf(cardinalDirection, coords);
 
             }
             break;
         }
 
         if (allCoordsVariants.isEmpty()) return null;
-        System.out.println("Все координаты таковы"+allCoordsVariants.up().size() + " " + allCoordsVariants.down().size() + " " + allCoordsVariants.right().size() + " " + allCoordsVariants.left().size());
+        System.out.println("Все координаты таковы" + allCoordsVariants.up().size() + " " + allCoordsVariants.down().size() + " " + allCoordsVariants.right().size() + " " + allCoordsVariants.left().size());
         return allCoordsVariants;
     }
 
@@ -54,8 +56,8 @@ System.out.println("Сетапится корабль размером"+shipList
 
         shipList.get(setupCounter).setLocationCells(coords);
 
-       for(Cell cell: shipList.get(setupCounter).getLocationCells()){
-            getGrid()[cell.row()][cell.col()]=cell;
+        for (Cell cell : shipList.get(setupCounter).getLocationCells()) {
+            getGrid()[cell.row()][cell.col()] = cell;
         }
 
         //System.out.println(usedCellsCounter);

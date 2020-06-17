@@ -26,6 +26,7 @@ abstract public class Player {
 
     public boolean areShipsNear(int row, int col) {
         ArrayList<Cell> nearestCells = new ArrayList<>();
+        nearestCells.add(new Cell(row,col));
         nearestCells.add(new Cell(row + 1, col));
         nearestCells.add(new Cell(row - 1, col));
         nearestCells.add(new Cell(row, col + 1));
@@ -39,6 +40,7 @@ abstract public class Player {
             if (cell.row() < getGrid().length && cell.col() < getGrid().length && cell.row() >= 0 && cell.col() >= 0)
                 if(grid[cell.row()][cell.col()].usedForShip()) return true;
         }
+
         return false;
     }
 
@@ -65,7 +67,7 @@ abstract public class Player {
     abstract public Cell makeGuess();
 
     String checkGuess(Cell playerGuess) {
-        if (shipList.isEmpty()) return null;
+        if (shipList.isEmpty()) return "";
         String result = "Мимо";//Подразумевает промах, пока не выяснили обратного
 
         for (Ship shipToTest : shipList) {// повторяем это для всех объектов DotCom в списке

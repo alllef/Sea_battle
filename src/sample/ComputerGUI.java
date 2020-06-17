@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ComputerGUI extends PlayerGUI {
     Computer computer = new Computer();
-
+    private ArrayList<Cell> shipCells = new ArrayList<>();
     private HumanGUI humanGUI;
 
     ComputerGUI(HumanGUI humanGUI) {
@@ -16,43 +16,47 @@ public class ComputerGUI extends PlayerGUI {
         this.humanGUI = humanGUI;
     }
 
-    ArrayList<Cell> shipCells = new ArrayList<>();
 
     @Override
     void setupButtonAction(final int i, final int j) {
         String result = computer.checkGuess(new Cell(i, j, true));
 
 
-        if (result.equals("Попал")) {
-            buttonGrid[i][j].setGraphic(getShotImage());
-            buttonGrid[i][j].setStyle("-fx-background-color: #0033cc");
-            buttonGrid[i][j].setDisable(true);
-            shipCells.add(new Cell(i, j));
-
-        }
-
-      else  if (result.equals("Потопил")) {
-            shipCells.add(new Cell(i, j));
-            buttonGrid[i][j].setGraphic(getShotImage());
-
-            for (Cell cell : shipCells) {
-                buttonGrid[cell.row()][cell.col()].setStyle("-fx-background-color: #0033cc; -fx-border-color:red");
+        switch (result) {
+            case "Попал" -> {
+                buttonGrid[i][j].setGraphic(getShotImage());
+                buttonGrid[i][j].setStyle("-fx-background-color: #0033cc");
+                buttonGrid[i][j].setDisable(true);
+                shipCells.add(new Cell(i, j));
             }
-
-            shipCells.clear();
-            buttonGrid[i][j].setDisable(true);
-        }
-       else if (result.equals("Мимо")) {
-            buttonGrid[i][j].setGraphic(getMissImage());
-            buttonGrid[i][j].setStyle("-fx-background-color: #ffff99; -fx-border-color:black");
-            buttonGrid[i][j].setDisable(true);
-
-            while(true) {
-                String humanResult = humanGUI.checkGUIGuess(computer.makeGuess().useForShip());
-                if(humanResult.equals("Мимо")) break;
+            case "Потопил" -> {
+                shipCells.add(new Cell(i, j));
+                buttonGrid[i][j].setGraphic(getShotImage());
+                for (Cell cell : shipCells) {
+                    buttonGrid[cell.row()][cell.col()].setStyle("-fx-background-color: #0033cc; -fx-border-color:red; -fx-border-width:3px 3px");
+                }
+                shipCells.clear();
+                buttonGrid[i][j].setDisable(true);
             }
+            case "Мимо" -> {
+                buttonGrid[i][j].setGraphic(getMissImage());
+                buttonGrid[i][j].setStyle("-fx-background-color: #ffff99; -fx-border-color:black");
+                buttonGrid[i][j].setDisable(true);
+                boolean isMiss = false;
+                while (!isMiss) {
+                    Cell guess = computer.makeGuess();
+                    String humanResult = humanGUI.checkGUIGuess(new Cell(guess.row(), guess.col(), true));
+                    System.out.println("Возвращающий результат:" + humanResult);
+                    switch (humanResult) {
+                        case "Попал" -> computer.guessesforResults.add(guess);
+                        case "Потопил" -> computer.guessesforResults.clear();
+                        case "Мимо" -> isMiss = true;
+                    }
+
+                }
+            }
+            default -> System.out.println("победил");
         }
-        else System.out.println("победил");
     }
 
     ComputerGUI() {
