@@ -45,9 +45,6 @@ Integer getSetupCounter(){
 
         }
 
-
-        if (allCoordsVariants.isEmpty()) return null;
-        // System.out.println("Все координаты таковы" + allCoordsVariants.up().size() + " " + allCoordsVariants.down().size() + " " + allCoordsVariants.right().size() + " " + allCoordsVariants.left().size());
         return allCoordsVariants;
     }
 

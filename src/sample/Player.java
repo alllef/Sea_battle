@@ -5,7 +5,7 @@ import java.util.List;
 
  public class Player {
     public List<Ship> shipList = new ArrayList<>();
-    private Cell[][] grid = new Cell[Values.squareGridSize][Values.squareGridSize];
+    private final Cell[][] grid = new Cell[Values.squareGridSize][Values.squareGridSize];
 
     public void setupGrid() {
         for (int i = 0; i < grid.length; i++) {
@@ -25,16 +25,8 @@ import java.util.List;
     }
 
     public boolean areShipsNear(int row, int col) {
-        ArrayList<Cell> nearestCells = new ArrayList<>();
-        nearestCells.add(new Cell(row,col));
-        nearestCells.add(new Cell(row + 1, col));
-        nearestCells.add(new Cell(row - 1, col));
-        nearestCells.add(new Cell(row, col + 1));
-        nearestCells.add(new Cell(row, col - 1));
-        nearestCells.add(new Cell(row + 1, col + 1));
-        nearestCells.add(new Cell(row + 1, col - 1));
-        nearestCells.add(new Cell(row - 1, col + 1));
-        nearestCells.add(new Cell(row - 1, col - 1));
+        ArrayList<Cell> nearestCells = new Cell(row,col).getNearestCellsList();
+
 
         for(Cell cell:nearestCells){
             if (cell.row() < getGrid().length && cell.col() < getGrid().length && cell.row() >= 0 && cell.col() >= 0)
@@ -77,13 +69,10 @@ import java.util.List;
             }
 
             if (result.equals("Потопил")) {//Ему пришел конец, так что удаляем его из списка сайтов
-               // shipList.remove(shipToTest);
                 break;
             }
 
         }
-
-        // System.out.println(result);//выводим для пользователя результат
         return result;
     }
 

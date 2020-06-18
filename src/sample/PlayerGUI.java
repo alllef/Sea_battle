@@ -5,9 +5,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 abstract public class PlayerGUI {
+
     Button[][] buttonGrid = new Button[Values.squareGridSize][Values.squareGridSize];
     private final Image playI = new Image("red-cross.png", Values.squareButtonSize, Values.squareButtonSize, false, false);
-    private final Image play2 = new Image("dot.png", Values.squareButtonSize / 2, Values.squareButtonSize / 2, false, false);
+    private final Image play2 = new Image("dot.png", (double) Values.squareButtonSize / 2, (double) Values.squareButtonSize / 2, false, false);
 
 
     public PlayerGUI() {

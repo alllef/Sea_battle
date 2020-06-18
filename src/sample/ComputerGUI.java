@@ -1,16 +1,46 @@
 package sample;
 
 
-public class ComputerGUI extends PlayerGUI {
-    private Computer computer = new Computer();
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
+public class ComputerGUI extends PlayerGUI {
+    private final Computer computer = new Computer();
+    private final Text finalText = setupText();
     private HumanGUI humanGUI;
+
+    public void setHumanGUI(HumanGUI humanGUI) {
+        this.humanGUI = humanGUI;
+    }
+
+    public void setFinalText(String text){
+        finalText.setText(text);
+        finalText.setVisible(true);
+    }
+
+    public Text getFinalText(){
+        return finalText;
+    }
 
     public ComputerGUI(HumanGUI humanGUI) {
         super();
         this.humanGUI = humanGUI;
     }
 
+    private Text setupText() {
+        Text text = new Text();
+        text.setVisible(false);
+        text.setFont(Font.font("Gill Sans", FontWeight.MEDIUM, FontPosture.REGULAR, 80));
+        text.setX(650);
+        text.setY(800);
+        text.setFill(Color.rgb(0, 51, 204));
+        text.setStroke(Color.BLUE);
+        text.setStrokeWidth(3);
+        return text;
+    }
 
     @Override
     public void setupButtonAction(final int i, final int j) {
@@ -44,7 +74,10 @@ public class ComputerGUI extends PlayerGUI {
                         }
 
                         computer.shipList.remove(ship);
-                        if (computer.shipList.isEmpty()) disableButtons();
+                        if (computer.shipList.isEmpty()) {
+                            disableButtons();
+                            setFinalText("YOU WIN");
+                        }
                         break;
                     }
                 }
@@ -62,22 +95,30 @@ public class ComputerGUI extends PlayerGUI {
                     String humanResult = humanGUI.checkGuess(new Cell(guess.row(), guess.col(), true));
 
                     switch (humanResult) {
-                        case "Попал" -> computer.guessesforResults.add(guess);
-                        case "Потопил" -> computer.guessesforResults.clear();
+                        case "Попал" -> {
+                            computer.getGuessesforResults().add(guess);
+                            computer.getAffectedshipCells().add(guess);
+                        }
+                        case "Потопил" ->{
+                            computer.getGuessesforResults().clear();
+                            computer.getAffectedshipCells().add(guess);
+                        }
                         case "Мимо" -> isMiss = true;
                     }
 
                     if (humanGUI.getHuman().shipList.isEmpty()) {
                         disableButtons();
+                        setFinalText("YOU LOSE");
+                        for (Ship ship: computer.shipList){
+                            for(Cell cell:ship.getLocationCells()){
+                                if(cell.usedForShip()) buttonGrid[cell.row()][cell.col()].setStyle("-fx-background-color: #0033cc");
+                            }
+                        }
                         isMiss = true;
                     }
 
                 }
             }
         }
-    }
-
-  public   ComputerGUI() {
-        super();
     }
 }

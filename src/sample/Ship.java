@@ -7,10 +7,6 @@ public class Ship {
     private final int size;
     private ArrayList<Cell> locationCells;
 
-    Ship() {
-        size=0;
-    }
-
     Ship(int size) {
         this.size = size;
     }

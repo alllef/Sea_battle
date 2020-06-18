@@ -3,10 +3,18 @@ package sample;
 import java.util.ArrayList;
 
 public class Computer extends Player {
-    private ArrayList<Cell> madeGuesses = new ArrayList<Cell>();
-     ArrayList<Cell> guessesforResults = new ArrayList<>();
+    private final ArrayList<Cell> madeGuesses = new ArrayList<>();
+    private  ArrayList<Cell> guessesforResults = new ArrayList<>();
+    private ArrayList<Cell> affectedshipCells = new ArrayList<>();
 
-   public Computer() {
+    public ArrayList<Cell> getGuessesforResults() {
+        return guessesforResults;
+    }
+
+    public ArrayList<Cell> getAffectedshipCells() {
+        return affectedshipCells;
+    }
+    public Computer() {
         super();
         setShipsLocations();
     }
@@ -113,9 +121,24 @@ public class Computer extends Player {
                     }
                 }
             } else {
+                boolean areShipsNear;
+                do {
+                    areShipsNear = false;
+                    System.out.println("something");
+                    row = (int) (Math.random() * Values.squareGridSize);
+                    column = (int) (Math.random() * Values.squareGridSize);
+                    System.out.println("row " + row + "column " + column);
+                    ArrayList<Cell> shipCellsNear = new Cell(row, column).getNearestCellsList();
+                    for (Cell cellNear : shipCellsNear) {
+                        for (Cell affectedCell : affectedshipCells) {
+                            if (affectedCell.row() == cellNear.row() && affectedCell.col() == cellNear.col()) {
+                                System.out.println("Нельзя пройти из-за " + row + " " + column);
+                                areShipsNear = true;
 
-                row = (int) (Math.random() * Values.squareGridSize);
-                column = (int) (Math.random() * Values.squareGridSize);
+                            }
+                        }
+                    }
+                } while (areShipsNear);
             }
 
             Cell guess = new Cell(row, column);
