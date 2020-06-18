@@ -1,16 +1,18 @@
 package sample;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 
 public class MyPain {
+    Pane gamePane = new Pane();
+    HumanGUI humanGUI = new HumanGUI();
+    ComputerGUI computerGUI = new ComputerGUI(humanGUI);
 
-    HumanGUI gui = new HumanGUI();
-    ComputerGUI otherGUI = new ComputerGUI(gui);
-    FlowPane gamePane = new FlowPane();
-    Button button = new Button("To game");
+    Button button = setupButton();
     private String alphabet = "ABCDEFGHIJK";
 
     void makeHumanGrid() {
@@ -23,12 +25,15 @@ public class MyPain {
                 else if(i == 0) tmpGrid.add(new Label(""),j,i);
                 else {
 
-                    Button button = gui.buttonGrid[i-1][j-1];
+                    Button button = humanGUI.buttonGrid[i-1][j-1];
                     tmpGrid.add(button, j, i);
                 }
             }
         }
+        tmpGrid.setLayoutX(20);
+        tmpGrid.setLayoutY(20);
         gamePane.getChildren().add(tmpGrid);
+
     }
 
 
@@ -44,20 +49,43 @@ public class MyPain {
                 else if(i == 0) tmpGrid.add(new Label(""),j,i);
                 else {
 
-                    Button button = otherGUI.buttonGrid[i-1][j-1];
+                    Button button = computerGUI.buttonGrid[i-1][j-1];
                     tmpGrid.add(button, j, i);
                 }
             }
         }
+        tmpGrid.setLayoutX(720);
+        tmpGrid.setLayoutY(20);
         return tmpGrid;
     }
 
+    private Button setupButton(){
+        Button button = new Button();
+        button.setText("To game");
+        button.setLayoutX(1350);
+        button.setLayoutY(750);
+        button.setMinHeight(Values.squareButtonSize*2);
+        button.setMinWidth(Values.squareButtonSize*3);
+        button.setMaxHeight(Values.squareButtonSize*2);
+        button.setMaxWidth(Values.squareButtonSize*3);
+        button.setPrefHeight(Values.squareButtonSize*2);
+        button.setPrefWidth(Values.squareButtonSize*3);
+        button.setStyle("-fx-background-color: #0033cc; -fx-border-color:black");
+
+        button.setOnAction(event -> {
+            if(humanGUI.human.setupCounter==15)  {
+                gamePane.getChildren().add(makeComputerGrid());
+                gamePane.getChildren().remove(1);
+            }
+        });
+        return button;
+    }
 
     MyPain() {
         makeHumanGrid();
         gamePane.getChildren().add(button);
-        gamePane.getChildren();
-        gamePane.setHgap(220);
+
+
     }
 
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ComputerGUI extends PlayerGUI {
     Computer computer = new Computer();
-    private ArrayList<Cell> shipCells = new ArrayList<>();
+
     private HumanGUI humanGUI;
 
     ComputerGUI(HumanGUI humanGUI) {
@@ -27,16 +27,31 @@ public class ComputerGUI extends PlayerGUI {
                 buttonGrid[i][j].setGraphic(getShotImage());
                 buttonGrid[i][j].setStyle("-fx-background-color: #0033cc");
                 buttonGrid[i][j].setDisable(true);
-                shipCells.add(new Cell(i, j));
             }
             case "Потопил" -> {
-                shipCells.add(new Cell(i, j));
+
                 buttonGrid[i][j].setGraphic(getShotImage());
-                for (Cell cell : shipCells) {
-                    buttonGrid[cell.row()][cell.col()].setStyle("-fx-background-color: #0033cc; -fx-border-color:red; -fx-border-width:3px 3px");
+                for (Ship ship : computer.shipList) {
+                    boolean hasUsedForShip = false;
+
+                    for (Cell cell1 : ship.getLocationCells()) {
+                        if (cell1.usedForShip()) {
+                            hasUsedForShip = true;
+                            break;
+                        }
+                    }
+
+                    if (!hasUsedForShip) {
+                        for (Cell cell1 : ship.getLocationCells()) {
+                            buttonGrid[cell1.row()][cell1.col()].setStyle("-fx-background-color: #0033cc; -fx-border-color:red; -fx-border-width:3px 3px");
+                            buttonGrid[cell1.row()][cell1.col()].setDisable(true);
+                        }
+                        computer.shipList.remove(ship);
+                        if (computer.shipList.isEmpty()) disableButtons();
+                        break;
+                    }
+
                 }
-                shipCells.clear();
-                buttonGrid[i][j].setDisable(true);
             }
             case "Мимо" -> {
                 buttonGrid[i][j].setGraphic(getMissImage());
@@ -52,7 +67,10 @@ public class ComputerGUI extends PlayerGUI {
                         case "Потопил" -> computer.guessesforResults.clear();
                         case "Мимо" -> isMiss = true;
                     }
-
+                    if (humanGUI.human.shipList.isEmpty()){
+                        disableButtons();
+                        break;
+                    }
                 }
             }
             default -> System.out.println("победил");

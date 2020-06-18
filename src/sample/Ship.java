@@ -7,7 +7,8 @@ public class Ship {
     private int size;
     private ArrayList<Cell> locationCells;
 
-    Ship() {}
+    Ship() {
+    }
 
     Ship(int size) {
         this.size = size;
@@ -35,14 +36,13 @@ public class Ship {
         int index = locationCells.indexOf(userInput);
 
         if (index >= 0) {
-            locationCells.remove(index);
+            locationCells.set(index, new Cell(userInput.row(), userInput.col()));
 
-
-            if (locationCells.isEmpty()) {
-                result = "Потопил";
-            } else {
-                result = "Попал";
+            for (Cell cell : locationCells) {
+                if (cell.usedForShip()) return "Попал";
             }
+
+            result = "Потопил";
         }
 
         return result;

@@ -60,14 +60,13 @@ abstract public class Player {
         shipList.add(new Ship(2));
         shipList.add(new Ship(2));
         shipList.add(new Ship(2));
-
     }
 
 
     abstract public Cell makeGuess();
 
     String checkGuess(Cell playerGuess) {
-        if (shipList.isEmpty()) return "";
+
         String result = "Мимо";//Подразумевает промах, пока не выяснили обратного
 
         for (Ship shipToTest : shipList) {// повторяем это для всех объектов DotCom в списке
@@ -78,7 +77,7 @@ abstract public class Player {
             }
 
             if (result.equals("Потопил")) {//Ему пришел конец, так что удаляем его из списка сайтов
-                shipList.remove(shipToTest);
+               // shipList.remove(shipToTest);
                 break;
             }
 

@@ -38,6 +38,14 @@ abstract public class PlayerGUI {
         return button;
     }
 
+    void disableButtons() {
+        for (int i = 0; i < buttonGrid.length; i++) {
+            for (int j = 0; j < buttonGrid[i].length; j++) {
+                buttonGrid[i][j].setDisable(true);
+            }
+        }
+    }
+
     ImageView getShotImage() {
 
 
