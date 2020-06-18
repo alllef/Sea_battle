@@ -10,12 +10,11 @@ abstract public class PlayerGUI {
     private final Image play2 = new Image("dot.png", Values.squareButtonSize / 2, Values.squareButtonSize / 2, false, false);
 
 
-
-    PlayerGUI() {
+    public PlayerGUI() {
         setupGrid();
     }
 
-    void setupGrid() {
+    public void setupGrid() {
         for (int i = 0; i < buttonGrid.length; i++) {
             for (int j = 0; j < buttonGrid[i].length; j++) {
                 buttonGrid[i][j] = setupButton(i, j);
@@ -23,7 +22,7 @@ abstract public class PlayerGUI {
         }
     }
 
-    Button setupButton(int i, int j) {
+   public Button setupButton(int i, int j) {
         Button button = new Button();
 
         button.setStyle("-fx-background-color: #ffffff; -fx-border-color:black");
@@ -38,21 +37,21 @@ abstract public class PlayerGUI {
         return button;
     }
 
-    void disableButtons() {
-        for (int i = 0; i < buttonGrid.length; i++) {
-            for (int j = 0; j < buttonGrid[i].length; j++) {
-                buttonGrid[i][j].setDisable(true);
+   public void disableButtons() {
+        for (Button[] buttons : buttonGrid) {
+            for (Button button : buttons) {
+                button.setDisable(true);
             }
         }
     }
 
-    ImageView getShotImage() {
+    public ImageView getShotImage() {
 
 
         return new ImageView(playI);
     }
 
-    ImageView getMissImage() {
+    public ImageView getMissImage() {
 
         return new ImageView(play2);
     }

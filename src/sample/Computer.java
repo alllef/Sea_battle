@@ -3,19 +3,20 @@ package sample;
 import java.util.ArrayList;
 
 public class Computer extends Player {
-    ArrayList<Cell> madeGuesses = new ArrayList<Cell>();
-    ArrayList<Cell> guessesforResults = new ArrayList<>();
+    private ArrayList<Cell> madeGuesses = new ArrayList<Cell>();
+     ArrayList<Cell> guessesforResults = new ArrayList<>();
 
-    Computer() {
+   public Computer() {
         super();
         setShipsLocations();
     }
 
 
     public void setShipsLocations() {
-        int counter = 0;
+
         int attempts = 0;
         boolean notSetuped = true;
+
         while (notSetuped) {
             for (Ship shipToSet : shipList) {//повторяем скаждым объектом в списке
                 ArrayList<Cell> coords = new ArrayList<>();//координаты текущего сайта
@@ -24,8 +25,8 @@ public class Computer extends Player {
 
                 int cardinalDirection = 1 + (int) (Math.random() * 4);//устанавливаем горизонтальный инкремент
 
-                while (!success /*&& attempts++ < 10000*/) {//главный поисковой цикл
-                    attempts++;
+                while (!success && attempts++ < 10000) {//главный поисковой цикл
+
                     if (attempts > 9000) break;
                     int row = (int) (Math.random() * Values.squareGridSize);
                     int column = (int) (Math.random() * Values.squareGridSize);//получаем случайную стартовую точку
@@ -65,39 +66,34 @@ public class Computer extends Player {
 
                 for (Cell cell : shipToSet.getLocationCells()) {
                     getGrid()[cell.row()][cell.col()] = cell;
-                    System.out.println("установлены координаты" + cell.row() + " " + cell.col() + " " + ++counter);
-
                 }
 
 
             }
 
             if (attempts > 9000) {
-                System.out.println("Повтор");
-                counter = 0;
                 attempts = 0;
+
                 for (Ship ship : shipList) {
                     ship.setLocationCells(new ArrayList<>());
                 }
+
                 for (int i = 0; i < getGrid().length; i++) {
                     for (int j = 0; j < getGrid()[i].length; j++) {
                         getGrid()[i][j] = new Cell(getGrid()[i][j].row(), getGrid()[i][j].col());
                     }
                 }
+
             } else notSetuped = false;
         }
     }
 
-
-    @Override
     public Cell makeGuess() {
-        int row;
-        int collumn;
-        int counter = 0;
-        while (true) {
-            System.out.println("Попытка компьютера " + counter);
-            counter++;
 
+        int row;
+        int column;
+
+        while (true) {
             if (!guessesforResults.isEmpty()) {
                 Cell lastGuess = guessesforResults.get((int) (Math.random() * guessesforResults.size()));
                 ArrayList<Cell> guesses = new ArrayList<>();
@@ -112,17 +108,17 @@ public class Computer extends Player {
 
                     if (tmpCell.row() < getGrid().length && tmpCell.col() < getGrid().length && tmpCell.row() >= 0 && tmpCell.col() >= 0) {
                         row = tmpCell.row();
-                        collumn = tmpCell.col();
+                        column = tmpCell.col();
                         break;
                     }
                 }
             } else {
 
                 row = (int) (Math.random() * Values.squareGridSize);
-                collumn = (int) (Math.random() * Values.squareGridSize);
+                column = (int) (Math.random() * Values.squareGridSize);
             }
 
-            Cell guess = new Cell(row, collumn);
+            Cell guess = new Cell(row, column);
             if (!madeGuesses.contains(guess)) {
                 madeGuesses.add(guess);
                 return guess;

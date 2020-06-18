@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 public class Ship {
 
-    private int size;
+    private final int size;
     private ArrayList<Cell> locationCells;
 
     Ship() {
+        size=0;
     }
 
     Ship(int size) {

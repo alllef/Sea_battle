@@ -3,8 +3,8 @@ package sample;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract public class Player {
-    protected List<Ship> shipList = new ArrayList<>();
+ public class Player {
+    public List<Ship> shipList = new ArrayList<>();
     private Cell[][] grid = new Cell[Values.squareGridSize][Values.squareGridSize];
 
     public void setupGrid() {
@@ -19,7 +19,7 @@ abstract public class Player {
         return grid;
     }
 
-    Player() {
+   public Player() {
         setupShips();
         setupGrid();
     }
@@ -63,7 +63,7 @@ abstract public class Player {
     }
 
 
-    abstract public Cell makeGuess();
+
 
     String checkGuess(Cell playerGuess) {
 

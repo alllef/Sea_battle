@@ -73,7 +73,7 @@ public class MyPain {
         button.setStyle("-fx-background-color: #0033cc; -fx-border-color:black");
 
         button.setOnAction(event -> {
-            if(humanGUI.human.setupCounter==15)  {
+            if(humanGUI.getHuman().getSetupCounter()==15)  {
                 gamePane.getChildren().add(makeComputerGrid());
                 gamePane.getChildren().remove(1);
             }
