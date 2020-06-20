@@ -21,7 +21,7 @@ public class MyPane {
         return gamePane;
     }
 
-    private void makeHumanGrid() {
+    private void makeHumanGrid() { // making grid for user
         Text text = setupText("Your field", 190);
         text.setVisible(true);
         gamePane.getChildren().add(text);
@@ -57,7 +57,7 @@ public class MyPane {
 
     }
 
-    private void setActionForButtons() {
+    private void setActionForButtons() { // seting what buttons restart and to game will do when clicking on them
         restartButton.setOnAction(event -> {
             gamePane.getChildren().remove(humanGUI.setupedShipsText);
             this.humanGUI = new HumanGUI();
@@ -75,14 +75,14 @@ public class MyPane {
                     gamePane.getChildren().clear();
                     this.humanGUI = new HumanGUI();
                     this.computerGUI = new ComputerGUI(humanGUI);
-                    setupPain();
+                    setupPane();
                 });
             }
         });
     }
 
-    private void setupPain() {
-        gamePane.setStyle("-fx-background-image: url(\"https://www.tomswallpapers.com/pic/201611/1920x1080/tomswallpapers.com-76799.jpg\")");
+    private void setupPane() { // setuping default Pane where all other graphical objects will be stored
+        gamePane.setStyle("-fx-background-image: url(\"tomswallpapers.com-76799.jpg\")");
         makeHumanGrid();
         gamePane.getChildren().add(toGameButton);
         gamePane.getChildren().add(computerGUI.getFinalText());
@@ -91,7 +91,7 @@ public class MyPane {
         setActionForButtons();
     }
 
-    private GridPane makeComputerGrid() {
+    private GridPane makeComputerGrid() { // making grid for computer
         Text text = setupText("Enemy field", 880);
         text.setVisible(true);
         gamePane.getChildren().add(text);
@@ -122,7 +122,7 @@ public class MyPane {
         return tmpGrid;
     }
 
-    private Text setupText(String userText, int x) {
+    private Text setupText(String userText, int x) { // setuping text
         Text text = new Text(userText);
 
         text.setVisible(false);
@@ -135,7 +135,7 @@ public class MyPane {
         return text;
     }
 
-    private Label setupLabel(String text) {
+    private Label setupLabel(String text) { //setuping Label
 
         Label label = new Label();
         label.setPrefHeight(Values.squareButtonSize);
@@ -149,7 +149,7 @@ public class MyPane {
         return label;
     }
 
-    private Button setupButton(String text, int x) {
+    private Button setupButton(String text, int x) { // stuping buttons restart and to game
         Button button = new Button();
         button.setText(text);
         button.setLayoutX(x);
@@ -164,7 +164,7 @@ public class MyPane {
 
 
     public MyPane() {
-        setupPain();
+        setupPane();
     }
 
 

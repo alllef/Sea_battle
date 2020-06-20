@@ -15,7 +15,7 @@ Integer getSetupCounter(){
     }
 
 
-    public AllCoordsVariants setupShip(int setupRow, int setupCol) {
+    public AllCoordsVariants setupShip(int setupRow, int setupCol) { // seting ship on Cell locations
         AllCoordsVariants allCoordsVariants = new AllCoordsVariants();
 
         for (int cardinalDirection = 1; cardinalDirection <= 4; cardinalDirection++) {
@@ -49,7 +49,7 @@ Integer getSetupCounter(){
     }
 
 
-    public void setCells(ArrayList<Cell> coords) {
+    public void setCells(ArrayList<Cell> coords) { // seting locations to ship
 
         shipList.get(setupCounter).setLocationCells(coords);
 
@@ -61,7 +61,7 @@ Integer getSetupCounter(){
     }
 
 
-    public static record AllCoordsVariants(
+    public static record AllCoordsVariants( // making record of all possible coordinates of ship
             ArrayList<Cell>up,
             ArrayList<Cell>down,
             ArrayList<Cell>right,
@@ -72,7 +72,7 @@ Integer getSetupCounter(){
             this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         }
 
-        AllCoordsVariants coordsVariantsOf(int i, ArrayList<Cell> coords) {
+        AllCoordsVariants coordsVariantsOf(int i, ArrayList<Cell> coords) { // return AllCoordsVariants with one atribute changed
 
             return switch (i) {
                 case 1 -> new AllCoordsVariants(coords, this.down, this.right, this.left);
@@ -83,7 +83,7 @@ Integer getSetupCounter(){
             };
         }
 
-        public ArrayList<ArrayList<Cell>> getArgumentsAsList() {
+        public ArrayList<ArrayList<Cell>> getArgumentsAsList() { // returning AllCoordsVariants atributes as list
             ArrayList<ArrayList<Cell>> argumentsList = new ArrayList<>();
             argumentsList.add(this.up);
             argumentsList.add(this.down);
@@ -92,7 +92,7 @@ Integer getSetupCounter(){
             return argumentsList;
         }
 
-        public boolean isEmpty() {
+        public boolean isEmpty() { // returns boolean depending on all atributes of AllCoordsVariants are empty or not
             return (up.isEmpty() && down.isEmpty() && right.isEmpty() && left.isEmpty());
         }
     }

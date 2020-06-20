@@ -2,10 +2,10 @@ package sample;
 
 import java.util.ArrayList;
 
-public class Computer extends Player {
+public class Computer extends Player { // Class for computer player
     private final ArrayList<Cell> madeGuesses = new ArrayList<>();
-    private  ArrayList<Cell> guessesforResults = new ArrayList<>();
-    private ArrayList<Cell> affectedshipCells = new ArrayList<>();
+    private final ArrayList<Cell> guessesforResults = new ArrayList<>();
+    private final ArrayList<Cell> affectedshipCells = new ArrayList<>();
 
     public ArrayList<Cell> getGuessesforResults() {
         return guessesforResults;
@@ -14,38 +14,38 @@ public class Computer extends Player {
     public ArrayList<Cell> getAffectedshipCells() {
         return affectedshipCells;
     }
+
     public Computer() {
         super();
         setShipsLocations();
     }
 
 
-    public void setShipsLocations() {
+    public void setShipsLocations() { // setting locations for ships
 
         int attempts = 0;
         boolean notSetuped = true;
 
         while (notSetuped) {
-            for (Ship shipToSet : shipList) {//повторяем скаждым объектом в списке
-                ArrayList<Cell> coords = new ArrayList<>();//координаты текущего сайта
-                //счетчик текущих попыток
-                boolean success = false;//нашли подходящее местоположение
+            for (Ship shipToSet : shipList) {
+                ArrayList<Cell> coords = new ArrayList<>();
 
-                int cardinalDirection = 1 + (int) (Math.random() * 4);//устанавливаем горизонтальный инкремент
+                boolean success = false;
 
-                while (!success && attempts++ < 10000) {//главный поисковой цикл
+                int cardinalDirection = 1 + (int) (Math.random() * 4);
 
+                while (!success) {
+                    attempts++;
                     if (attempts > 9000) break;
                     int row = (int) (Math.random() * Values.squareGridSize);
                     int column = (int) (Math.random() * Values.squareGridSize);//получаем случайную стартовую точку
 
 
-                    // System.out.println("row" + row + "column" + column);
-                    success = true;//предполагаемый успех
+                    success = true;
                     while (success && coords.size() < shipToSet.getSize()) {
-                        //ищем соседнюю неиспользованную ячейку
-                        if (!areShipsNear(row, column)) {//если еще не используется
-                            //System.out.println("работает");
+
+                        if (!areShipsNear(row, column)) {
+
                             switch (cardinalDirection) {
                                 case 1 -> coords.add(getGrid()[row--][column]);
                                 case 2 -> coords.add(getGrid()[row++][column]);
@@ -53,24 +53,20 @@ public class Computer extends Player {
                                 case 4 -> coords.add(getGrid()[row][column--]);
                             }
 
-
                             if (row >= getGrid().length || column >= getGrid().length || row < 0 || column < 0) {
                                 coords.clear();
                                 success = false;
                             }
-                            //вышли за рамкм - низ
-                            //неудача
 
-
-                        } else {//нашли уже используемое местоположение
+                        } else {
                             coords.clear();
-                            success = false;//неудача
+                            success = false;
                         }
                     }
 
                 }
 
-                shipToSet.setLocationCells(coords);//Вызываем сеттер из объекта DotCom, чтобы передать ему местоположение которое только что получили от вспомогательного объекта
+                shipToSet.setLocationCells(coords);
 
                 for (Cell cell : shipToSet.getLocationCells()) {
                     getGrid()[cell.row()][cell.col()] = cell;
@@ -96,7 +92,7 @@ public class Computer extends Player {
         }
     }
 
-    public Cell makeGuess() {
+    public Cell makeGuess() { // making guess about Cell where ship can be
 
         int row;
         int column;
@@ -124,15 +120,12 @@ public class Computer extends Player {
                 boolean areShipsNear;
                 do {
                     areShipsNear = false;
-                    System.out.println("something");
                     row = (int) (Math.random() * Values.squareGridSize);
                     column = (int) (Math.random() * Values.squareGridSize);
-                    System.out.println("row " + row + "column " + column);
                     ArrayList<Cell> shipCellsNear = new Cell(row, column).getNearestCellsList();
                     for (Cell cellNear : shipCellsNear) {
                         for (Cell affectedCell : affectedshipCells) {
                             if (affectedCell.row() == cellNear.row() && affectedCell.col() == cellNear.col()) {
-                                System.out.println("Нельзя пройти из-за " + row + " " + column);
                                 areShipsNear = true;
 
                             }

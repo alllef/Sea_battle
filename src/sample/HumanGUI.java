@@ -20,7 +20,7 @@ public class HumanGUI extends PlayerGUI {
     }
 
 
-    private Text setupText() {
+    private Text setupText() { // setuping counter of how many ships remain to setup
         Text text = new Text();
         text.setVisible(true);
         text.setFont(Font.font("Gill Sans", FontWeight.MEDIUM, FontPosture.REGULAR, 25));
@@ -32,7 +32,7 @@ public class HumanGUI extends PlayerGUI {
     }
 
     @Override
-    public void setupButtonAction(final int i, final int j) {
+    public void setupButtonAction(final int i, final int j) { // setuping what graphic implementation of Cell will do after clicking on it
 
         if (human.getSetupCounter() < human.shipList.size()) {
             Human.AllCoordsVariants allCoordsVariants = human.setupShip(i, j);
@@ -56,7 +56,7 @@ public class HumanGUI extends PlayerGUI {
         }
     }
 
-    public void setShipsOnButton(Button[][] buttonGrid, ArrayList<Cell> coords, Human.AllCoordsVariants allCoordsVariants) {
+    public void setShipsOnButton(Button[][] buttonGrid, ArrayList<Cell> coords, Human.AllCoordsVariants allCoordsVariants) { // setting ships on button
         human.setCells(coords);
         for (Cell coord : coords) {
             buttonGrid[coord.row()][coord.col()].setStyle("-fx-background-color: #0033cc");
@@ -85,7 +85,7 @@ public class HumanGUI extends PlayerGUI {
         setupedShipsText.setText("Ships to setup remain " + (human.shipList.size() - human.getSetupCounter()));
     }
 
-    public String checkGuess(Cell cell) {
+    public String checkGuess(Cell cell) { // graphical implementation of what will Cell do when clicking on it
 
         String result = human.checkGuess(cell);
         System.out.println(result);

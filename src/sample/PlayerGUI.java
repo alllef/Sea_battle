@@ -15,7 +15,7 @@ abstract public class PlayerGUI {
         setupGrid();
     }
 
-    public void setupGrid() {
+    public void setupGrid() { // setuping buttonGrid for player
         for (int i = 0; i < buttonGrid.length; i++) {
             for (int j = 0; j < buttonGrid[i].length; j++) {
                 buttonGrid[i][j] = setupButton(i, j);
@@ -23,7 +23,7 @@ abstract public class PlayerGUI {
         }
     }
 
-   public Button setupButton(int i, int j) {
+   public Button setupButton(int i, int j) { // setuping button implementations for Cell for player
         Button button = new Button();
 
         button.setStyle("-fx-background-color: #ffffff; -fx-border-color:black");

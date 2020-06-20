@@ -17,7 +17,7 @@ public class Ship {
     }
 
 
-    public void setLocationCells(ArrayList<Cell> locationCells) {
+    public void setLocationCells(ArrayList<Cell> locationCells) { // seting locstionCells for ship
         for (int i = 0; i < locationCells.size(); i++) {
             locationCells.set(i, locationCells.get(i).useForShip());
         }
@@ -28,7 +28,7 @@ public class Ship {
         return locationCells;
     }
 
-    public String checkYourself(Cell userInput) {
+    public String checkYourself(Cell userInput) { // checking whether ship has this Cell
         String result = "Мимо";
         int index = locationCells.indexOf(userInput);
 

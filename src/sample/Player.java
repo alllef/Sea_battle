@@ -7,7 +7,7 @@ import java.util.List;
     public List<Ship> shipList = new ArrayList<>();
     private final Cell[][] grid = new Cell[Values.squareGridSize][Values.squareGridSize];
 
-    public void setupGrid() {
+    public void setupGrid() { // setuping Grid for player
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 grid[i][j] = new Cell(i, j);
@@ -24,7 +24,7 @@ import java.util.List;
         setupGrid();
     }
 
-    public boolean areShipsNear(int row, int col) {
+    public boolean areShipsNear(int row, int col) { // guessing are there Ships near Cell or not
         ArrayList<Cell> nearestCells = new Cell(row,col).getNearestCellsList();
 
 
@@ -36,13 +36,13 @@ import java.util.List;
         return false;
     }
 
-    public void setupShips() {
-        shipList.add(new Ship(1));
-        shipList.add(new Ship(1));
-        shipList.add(new Ship(1));
-        shipList.add(new Ship(1));
-        shipList.add(new Ship(1));
+    public void setupShips() { // adding all ships needed
         shipList.add(new Ship(5));
+        shipList.add(new Ship(1));
+        shipList.add(new Ship(1));
+        shipList.add(new Ship(1));
+        shipList.add(new Ship(1));
+        shipList.add(new Ship(1));
         shipList.add(new Ship(4));
         shipList.add(new Ship(4));
         shipList.add(new Ship(3));
@@ -57,18 +57,18 @@ import java.util.List;
 
 
 
-    String checkGuess(Cell playerGuess) {
+    String checkGuess(Cell playerGuess) { // checking whether there is Cell which wasn't affected
 
-        String result = "Мимо";//Подразумевает промах, пока не выяснили обратного
+        String result = "Мимо";
 
-        for (Ship shipToTest : shipList) {// повторяем это для всех объектов DotCom в списке
-            result = shipToTest.checkYourself(playerGuess);//Просим DotCom проверить пользователя(ищет попадание или потопление)
+        for (Ship shipToTest : shipList) {
+            result = shipToTest.checkYourself(playerGuess);
 
             if (result.equals("Попал")) {
-                break;//выбираем из цикла раньше времени нет смысла проверять другие сайты
+                break;
             }
 
-            if (result.equals("Потопил")) {//Ему пришел конец, так что удаляем его из списка сайтов
+            if (result.equals("Потопил")) {
                 break;
             }
 

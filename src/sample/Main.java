@@ -5,20 +5,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    MyPane firstPain = new MyPane();
+    MyPane firstPane = new MyPane();
 
 
 
     @Override
     public void start(Stage primaryStage) {
-
-
-
-
-// Для отображения сетки
-      /*  */
-        Scene setup = new Scene(firstPain.getGamePane());
-
+        Scene setup = new Scene(firstPane.getGamePane()); // setuping main stage of a project
         primaryStage.setScene(setup);
         primaryStage.setTitle("Sea battle");
         primaryStage.setFullScreen(true);

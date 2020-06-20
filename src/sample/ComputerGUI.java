@@ -30,7 +30,7 @@ public class ComputerGUI extends PlayerGUI {
         this.humanGUI = humanGUI;
     }
 
-    private Text setupText() {
+    private Text setupText() { // setuping Text for final notify
         Text text = new Text();
         text.setVisible(false);
         text.setFont(Font.font("Gill Sans", FontWeight.MEDIUM, FontPosture.REGULAR, 80));
@@ -43,7 +43,7 @@ public class ComputerGUI extends PlayerGUI {
     }
 
     @Override
-    public void setupButtonAction(final int i, final int j) {
+    public void setupButtonAction(final int i, final int j) { // setuping what graphic implementation of Cell will do after clicking on it
         String result = computer.checkGuess(new Cell(i, j, true));
 
 
